@@ -1,6 +1,8 @@
 package com.example.class1students
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -26,5 +28,17 @@ class StudentsViewStudent : AppCompatActivity() {
         findViewById<TextView>(R.id.studentsview_name).text = name
         findViewById<TextView>(R.id.studentsview_id).text = id
         findViewById<CheckBox>(R.id.checkBox2).isChecked = isChecked
+
+        val editButton: Button = findViewById(R.id.studentsview_edit_button)
+        editButton.setOnClickListener {
+            val editIntent = Intent(this, EditStudent::class.java)
+
+            // Pass data to EditStudent activity
+            editIntent.putExtra("name", intent.getStringExtra("name"))
+            editIntent.putExtra("id", intent.getStringExtra("id"))
+            editIntent.putExtra("isChecked", intent.getBooleanExtra("isChecked", false))
+
+            startActivity(editIntent) // Start the EditStudent activity
+        }
     }
 }
