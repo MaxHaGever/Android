@@ -10,20 +10,20 @@ class Model private constructor(){
 
     init {
         val student1 = Student(
-            name = "Alice Johnson",
-            id = "101",
+            name = "Max Spector",
+            id = "1",
             avatarURL = "",
             isChecked = false
         )
         val student2 = Student(
-            name = "Bob Smith",
-            id = "102",
+            name = "Roni Spector",
+            id = "2",
             avatarURL = "",
             isChecked = false
         )
         val student3 = Student(
-            name = "Charlie Brown",
-            id = "103",
+            name = "Yuri Spector",
+            id = "3",
             avatarURL = "",
             isChecked = false
         )

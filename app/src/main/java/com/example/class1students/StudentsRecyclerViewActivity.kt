@@ -23,6 +23,11 @@ private const val REQUEST_CODE_ADD_STUDENT = 1
 
 class StudentsRecyclerViewActivity : AppCompatActivity() {
     var students: MutableList<Student>? = null
+    override fun onResume() {
+        super.onResume()
+        // Notify the adapter of data changes
+        findViewById<RecyclerView>(R.id.students_recycler_view).adapter?.notifyDataSetChanged()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,9 +38,6 @@ class StudentsRecyclerViewActivity : AppCompatActivity() {
             insets
         }
 
-        //TODO 1: Create Layout - done
-        //TODO 2: Create Adapter - done
-        //TODO 3: Create View Holder - 😀
         students = Model.shared.students
         val recyclerView: RecyclerView = findViewById(R.id.students_recycler_view)
         recyclerView.setHasFixedSize(true)
@@ -64,7 +66,6 @@ class StudentsRecyclerViewActivity : AppCompatActivity() {
             findViewById<RecyclerView>(R.id.students_recycler_view).adapter?.notifyDataSetChanged()
         }
     }
-
 
     class StudentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
