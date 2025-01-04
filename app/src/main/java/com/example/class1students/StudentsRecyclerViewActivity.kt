@@ -1,5 +1,6 @@
 package com.example.class1students
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.class1students.model.Model
 import com.example.class1students.model.Student
+
+private const val REQUEST_CODE_ADD_STUDENT = 1
 
 class StudentsRecyclerViewActivity : AppCompatActivity() {
     var students: MutableList<Student>? = null
@@ -44,9 +47,24 @@ class StudentsRecyclerViewActivity : AppCompatActivity() {
 
         val addButton: Button = findViewById(R.id.add_student_button)
         addButton.setOnClickListener {
-            // TODO: Navigate to the "Add New Student" activity
+            val intent = Intent(this, AddStudentActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE_ADD_STUDENT)
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_ADD_STUDENT && resultCode == RESULT_OK) {
+            val name = data?.getStringExtra("name") ?: return
+            val id = data.getStringExtra("id") ?: return
+
+            val newStudent = Student(name = name, id = id, avatarURL = "", isChecked = false)
+            Model.shared.students.add(newStudent)
+
+            findViewById<RecyclerView>(R.id.students_recycler_view).adapter?.notifyDataSetChanged()
+        }
+    }
+
 
     class StudentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
