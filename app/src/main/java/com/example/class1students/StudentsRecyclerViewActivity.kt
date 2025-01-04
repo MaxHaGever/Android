@@ -86,13 +86,17 @@ class StudentsRecyclerViewActivity : AppCompatActivity() {
                 }
             }
 
-            itemView.setOnClickListener{
-                adapterPosition
+            itemView.setOnClickListener {
+                val context = itemView.context
+                val intent = Intent(context, StudentsViewStudent::class.java)
+                intent.putExtra("name", student?.name)
+                intent.putExtra("id", student?.id)
+                intent.putExtra("isChecked", student?.isChecked)
+                context.startActivity(intent)
             }
 
         }
 
-        // Move bind function outside the init block
         fun bind(student: Student, position: Int) {
             this.student = student
             nameTextView?.text = student.name
